@@ -17,6 +17,8 @@ const { startSync, getStatus, prioritize } = require("./sync");
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, "app-dist");
+// Books shipped INSIDE the app payload (resources/app/books) — installed offline by Setup/Portable.
+const EMBED_BOOKS = path.join(ROOT, "books");
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -125,13 +127,16 @@ function handler(req, res) {
   // sync status for the UI chip
   if (urlPath === "/api/sync-status") return json(res, 200, getStatus());
 
-  // books → user-data dir; missing book → 202 pending + jump the queue
+  // books → embedded payload first, then user-data (updated/extra downloads);
+  // missing book → 202 pending + jump the queue
   if (urlPath.startsWith("/books/")) {
     const rel = safeBooksRel(urlPath.slice("/books/".length));
     if (!rel) {
       res.writeHead(403);
       return res.end();
     }
+    const embedded = path.join(EMBED_BOOKS, rel);
+    if (fs.existsSync(embedded) && fs.statSync(embedded).isFile()) return serveFile(req, res, embedded);
     const fp = path.join(booksDir, rel);
     if (fs.existsSync(fp) && fs.statSync(fp).isFile()) return serveFile(req, res, fp);
 
@@ -216,7 +221,7 @@ if (!gotLock) {
     } catch (e) {
       console.error("catalog.json missing", e);
     }
-    startSync({ booksDir, catalog });
+    startSync({ booksDir, catalog, embedBooksDir: EMBED_BOOKS });
 
     server = http.createServer(handler);
     server.listen(0, "127.0.0.1", () => {

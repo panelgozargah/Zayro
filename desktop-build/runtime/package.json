@@ -1,7 +1,7 @@
 {
   "name": "zayro",
   "productName": "Zayro",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Zayro — Persian smart textbook library (grades 1-9) with an advanced offline PDF reader",
   "main": "main.js",
   "author": "Zayro",

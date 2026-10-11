@@ -20,6 +20,7 @@ const UA =
 
 const state = {
   booksDir: null,
+  embedBooksDir: null,
   catalog: [],
   tasks: new Map(), // rel -> task
   queue: [], // rel[]
@@ -47,6 +48,8 @@ function getStatus() {
     const t = state.tasks.get(rel);
     if (t) downloading.push({ id: t.id, title: t.title, rel });
   }
+  let embedded = 0;
+  for (const t of state.tasks.values()) if (t.embedded && t.ok) embedded++;
   return {
     total: state.tasks.size,
     done,
@@ -54,6 +57,7 @@ function getStatus() {
     pending,
     downloading,
     failedList,
+    embedded,
     booksDir: state.booksDir,
   };
 }
@@ -180,10 +184,11 @@ function prioritize(rel) {
   return true;
 }
 
-function startSync({ booksDir, catalog }) {
+function startSync({ booksDir, catalog, embedBooksDir }) {
   if (state.started) return getStatus();
   state.started = true;
   state.booksDir = booksDir;
+  state.embedBooksDir = embedBooksDir || null;
 
   for (const b of catalog) {
     const rel = "g" + b.grade + "/" + b.book_id + ".pdf";
@@ -198,6 +203,11 @@ function startSync({ booksDir, catalog }) {
       tries: 0,
       error: null,
     };
+    // Books shipped inside the app payload are instantly ready — no download needed.
+    if (state.embedBooksDir && isPdfValid(path.join(state.embedBooksDir, rel))) {
+      t.ok = true;
+      t.embedded = true;
+    }
     state.tasks.set(rel, t);
   }
 
@@ -205,7 +215,10 @@ function startSync({ booksDir, catalog }) {
     state.queue = [];
     for (const [rel, t] of state.tasks) {
       if (!t.ok) {
-        if (isPdfValid(t.dest)) {
+        if (state.embedBooksDir && isPdfValid(path.join(state.embedBooksDir, rel))) {
+          t.ok = true;
+          t.embedded = true;
+        } else if (isPdfValid(t.dest)) {
           t.ok = true;
         } else {
           t.tries = 0; // fresh scan → fresh attempts

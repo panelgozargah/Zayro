@@ -25,16 +25,16 @@ async function main() {
 
   // --- version info ---
   const vi = Resource.VersionInfo.createEmpty();
-  vi.setFileVersion(1, 0, 0, 0);
-  vi.setProductVersion(1, 0, 0, 0);
+  vi.setFileVersion(1, 1, 0, 0);
+  vi.setProductVersion(1, 1, 0, 0);
   vi.setStringValue(LANG, "CompanyName", "Zayro");
   vi.setStringValue(LANG, "FileDescription", "Zayro - Persian Smart Textbook Library");
-  vi.setStringValue(LANG, "FileVersion", "1.0.0.0");
+  vi.setStringValue(LANG, "FileVersion", "1.1.0.0");
   vi.setStringValue(LANG, "InternalName", "Zayro");
   vi.setStringValue(LANG, "LegalCopyright", "(c) 2026 Zayro. MIT License.");
   vi.setStringValue(LANG, "OriginalFilename", "Zayro.exe");
   vi.setStringValue(LANG, "ProductName", "Zayro");
-  vi.setStringValue(LANG, "ProductVersion", "1.0.0.0");
+  vi.setStringValue(LANG, "ProductVersion", "1.1.0.0");
   vi.outputToResourceEntries(res.entries);
 
   res.outputResource(exe);
