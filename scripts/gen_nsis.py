@@ -16,9 +16,9 @@ Unicode true
 Name "Zayro"
 OutFile "@@OUTFILE@@"
 InstallDir "$LOCALAPPDATA\Programs\Zayro"
-InstallDirRegKey HKCU "$INSTKEY" "InstallLocation"
+InstallDirRegKey HKCU ${INSTKEY} "InstallLocation"
 RequestExecutionLevel user
-SetCompressor /SOLID lzma
+SetCompressor /SOLID zlib
 ShowInstDetails show
 ShowUnInstDetails show
 
@@ -66,22 +66,22 @@ Section "Install"
 
   ; uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKCU "$INSTKEY" "DisplayName" "Zayro - کتابخانه هوشمند کتاب‌های درسی"
-  WriteRegStr HKCU "$INSTKEY" "DisplayVersion" "1.1.0"
-  WriteRegStr HKCU "$INSTKEY" "Publisher" "Zayro"
-  WriteRegStr HKCU "$INSTKEY" "InstallLocation" "$INSTDIR"
-  WriteRegStr HKCU "$INSTKEY" "DisplayIcon" "$INSTDIR\Zayro.exe"
-  WriteRegStr HKCU "$INSTKEY" "UninstallString" '"$INSTDIR\Uninstall.exe"'
-  WriteRegDWORD HKCU "$INSTKEY" "NoModify" 1
-  WriteRegDWORD HKCU "$INSTKEY" "NoRepair" 1
-  WriteRegDWORD HKCU "$INSTKEY" "EstimatedSize" @@ESTSIZE@@
+  WriteRegStr HKCU ${INSTKEY} "DisplayName" "Zayro - کتابخانه هوشمند کتاب‌های درسی"
+  WriteRegStr HKCU ${INSTKEY} "DisplayVersion" "1.1.0"
+  WriteRegStr HKCU ${INSTKEY} "Publisher" "Zayro"
+  WriteRegStr HKCU ${INSTKEY} "InstallLocation" "$INSTDIR"
+  WriteRegStr HKCU ${INSTKEY} "DisplayIcon" "$INSTDIR\Zayro.exe"
+  WriteRegStr HKCU ${INSTKEY} "UninstallString" '"$INSTDIR\Uninstall.exe"'
+  WriteRegDWORD HKCU ${INSTKEY} "NoModify" 1
+  WriteRegDWORD HKCU ${INSTKEY} "NoRepair" 1
+  WriteRegDWORD HKCU ${INSTKEY} "EstimatedSize" @@ESTSIZE@@
 SectionEnd
 
 Section "un.Uninstall"
   Delete "$DESKTOP\Zayro.lnk"
   RMDir /r "$SMPROGRAMS\Zayro"
   RMDir /r "$INSTDIR"
-  DeleteRegKey HKCU "$INSTKEY"
+  DeleteRegKey HKCU ${INSTKEY}
 SectionEnd
 """
 
@@ -98,7 +98,7 @@ Unicode true
 SilentInstall silent
 InstallDir "$LOCALAPPDATA\ZayroPortable"
 RequestExecutionLevel user
-SetCompressor /SOLID lzma
+SetCompressor /SOLID zlib
 Icon "@@ICON@@"
 OutFile "@@OUTFILE@@"
 
