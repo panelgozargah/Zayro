@@ -1,0 +1,61 @@
+"use client";
+
+import {
+  BookOpenText,
+  PenLine,
+  Sigma,
+  FlaskConical,
+  Globe2,
+  MoonStar,
+  Sparkles,
+  Languages,
+  BookMarked,
+  Wrench,
+  Palette,
+  Lightbulb,
+  ShieldCheck,
+  Zap,
+  BookOpen,
+  Compass,
+  Pencil,
+  Calculator,
+  Atom,
+  GraduationCap,
+  type LucideIcon,
+} from "lucide-react";
+
+/** Subject key → icon component (mirrors gen_books_data.py taxonomy) */
+export const SUBJECT_ICONS: Record<string, LucideIcon> = {
+  farsi: BookOpenText,
+  negarsh: PenLine,
+  riazi: Sigma,
+  oloom: FlaskConical,
+  motaleat: Globe2,
+  hedieh: MoonStar,
+  payam: MoonStar,
+  quran: Sparkles,
+  arabi: Languages,
+  english: BookMarked,
+  karofan: Wrench,
+  farhang: Palette,
+  tafakkor: Lightbulb,
+  defa: ShieldCheck,
+  varzesh: Zap,
+  honarkar: Palette,
+  jahan: Globe2,
+  farsikhan: BookOpenText,
+  riazidoust: Sigma,
+  other: BookOpen,
+};
+
+export const GRADE_ICONS: Record<number, LucideIcon> = {
+  1: Sparkles,
+  2: Pencil,
+  3: BookOpen,
+  4: Calculator,
+  5: FlaskConical,
+  6: Globe2,
+  7: Compass,
+  8: Atom,
+  9: GraduationCap,
+};

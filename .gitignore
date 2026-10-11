@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+app-dist/
+
+# Books (downloaded via scripts/download_books.py)
+public/books/
+books_raw/
+
+# Archives & binaries
+*.zip
+*.7z
+*.exe
+*.msi
+
+# Database
+db/
+*.db
+*.sqlite
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs & temp
+*.log
+tmp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
