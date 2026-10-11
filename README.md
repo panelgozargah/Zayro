@@ -6,7 +6,7 @@
 
 **کتابخانهٔ هوشمند و کاملاً آفلاین کتاب‌های درسی ایران — پایهٔ ۱ تا ۹**
 
-[![Release](https://img.shields.io/badge/Release-v1.0.0-8b5cf6)](../../releases)
+[![Release](https://img.shields.io/badge/Release-اولین_نسخهٔ_رسمی-8b5cf6)](../../releases)
 [![Windows](https://img.shields.io/badge/Windows-x64%20%7C%20ia32-0078d4?logo=windows)](#-دانلود-نسخهٔ-ویندوز)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
 [![Electron](https://img.shields.io/badge/Electron-38-47848f?logo=electron)](https://electronjs.org)
