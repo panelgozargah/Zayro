@@ -18,7 +18,7 @@ OutFile "@@OUTFILE@@"
 InstallDir "$LOCALAPPDATA\Programs\Zayro"
 InstallDirRegKey HKCU ${INSTKEY} "InstallLocation"
 RequestExecutionLevel user
-SetCompressor /SOLID zlib
+SetCompressor lzma
 ShowInstDetails show
 ShowUnInstDetails show
 
@@ -52,7 +52,7 @@ VIAddVersionKey "LegalCopyright" "(c) 2026 Zayro"
 
 Section "Install"
   SetOutPath "$INSTDIR"
-  File /r "@@APPDIR@@\*.*"
+  File /r "@@APPDIR@@/*.*"
   ; --- embedded official textbooks (109 PDFs) → resources/app/books ---
   SetOutPath "$INSTDIR\resources\app\books"
   File /r "/home/z/my-project/public/books/*.*"
@@ -98,7 +98,7 @@ Unicode true
 SilentInstall silent
 InstallDir "$LOCALAPPDATA\ZayroPortable"
 RequestExecutionLevel user
-SetCompressor /SOLID zlib
+SetCompressor lzma
 Icon "@@ICON@@"
 OutFile "@@OUTFILE@@"
 
@@ -119,7 +119,7 @@ Section "Unpack & Run"
 
   ${If} $ALREADY_OK == "0"
     SetOutPath "$INSTDIR"
-    File /r "@@APPDIR@@\*.*"
+    File /r "@@APPDIR@@/*.*"
     ; --- embedded official textbooks (109 PDFs) → resources/app/books ---
     SetOutPath "$INSTDIR\resources\app\books"
     File /r "/home/z/my-project/public/books/*.*"
