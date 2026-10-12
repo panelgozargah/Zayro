@@ -15,8 +15,8 @@ PUBLIC_BOOKS = "/home/z/my-project/public/books"
 RUNTIME = os.path.join(BASE, "runtime")
 APP_DIST_SRC = os.path.join(BASE, "app-dist-src")
 ICON = os.path.join(BASE, "zayro.ico")
-NSIS_DIR = os.path.join(BASE, "nsis-linux")
-MAKENSIS = os.path.join(NSIS_DIR, "usr", "bin", "makensis")
+NSIS_DIR = os.path.join(BASE, "nsis")            # electron-builder nsis-3.0.4.1 layout
+MAKENSIS = os.path.join(NSIS_DIR, "linux", "makensis")  # linux ELF binary shipped in that package
 VERSION = "1.1.0"
 
 
@@ -54,12 +54,13 @@ def stage(arch):
 
 
 def compile_exes(arch):
-    sh(f'python3 /home/z/my-project/scripts/gen_nsis.py')
+    # ALWAYS use the gen_nsis.py that ships next to this script (same version line)
+    sh(f'python3 "{os.path.join(os.path.dirname(os.path.abspath(__file__)), "gen_nsis.py")}"')
     for kind in ("setup", "portable"):
         nsi = os.path.join(BASE, "nsis-src", f"{kind}-{arch}.nsi")
         log = os.path.join(BASE, f"build-{kind}-{arch}.log")
         print(f"compiling {kind}-{arch} ... (log: {log})")
-        env = dict(os.environ, NSISDIR=os.path.join(NSIS_DIR, "usr", "share", "nsis"))
+        env = dict(os.environ, NSISDIR=NSIS_DIR)
         with open(log, "w") as lf:
             subprocess.run([MAKENSIS, nsi], stdout=lf, stderr=subprocess.STDOUT, check=True, env=env)
         out = os.path.join(BASE, "dist", f"Zayro-{kind.capitalize()}-{arch}.exe")
